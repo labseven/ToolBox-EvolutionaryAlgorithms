@@ -138,14 +138,35 @@ def mutate_text(message, prob_ins=0.05, prob_del=0.05, prob_sub=0.05):
                         (legal) character
     """
 
-    if random.random() < prob_ins:
-        # TODO: Implement insertion-type mutation
-        pass
+    # Each if adds the previous chance, so that it is fair
+    rand_chance = random.random()
 
-    # TODO: Also implement deletion and substitution mutations
-    # HINT: Message objects inherit from list, so they also inherit
-    #       useful list methods
-    # HINT: You probably want to use the VALID_CHARS global variable
+    # Add a random character
+    if rand_chance < prob_ins:
+        loc = random.randrange(len(message))
+        char = random.choice(VALID_CHARS)
+
+        new_message = message[:loc]
+        new_message += char
+        new_message += message[loc:]
+        return (new_message, )
+
+    # Remove a random character
+    if rand_chance < (prob_ins + prob_del):
+        loc = random.randrange(len(message))
+        new_message = message[:loc]
+        new_message += message[loc + 1:]
+        return (new_message, )
+
+    # Substitute a random character
+    if rand_chance < (prob_ins + prob_del + prob_sub):
+        loc = random.randrange(len(message))
+        char = random.choice(VALID_CHARS)
+
+        new_message = message[:loc]
+        new_message += char
+        new_message += message[loc + 1:]
+        return (new_message, )
 
     return (message, )   # Length 1 tuple, required by DEAP
 

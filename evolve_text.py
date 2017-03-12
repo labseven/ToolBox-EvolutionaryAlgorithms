@@ -14,7 +14,7 @@ https://sites.google.com/site/sd15spring/home/project-toolbox/evolutionary-algor
 import random
 import string
 
-import numpy    # Used for statistics
+import numpy as np    # Used for statistics
 from deap import algorithms
 from deap import base
 from deap import tools
@@ -174,10 +174,10 @@ def evolve_string(text):
 
     # Collect statistics as the EA runs
     stats = tools.Statistics(lambda ind: ind.fitness.values)
-    stats.register("avg", numpy.mean)
-    stats.register("std", numpy.std)
-    stats.register("min", numpy.min)
-    stats.register("max", numpy.max)
+    stats.register("avg", np.mean)
+    stats.register("std", np.std)
+    stats.register("min", np.min)
+    stats.register("max", np.max)
 
     # Run simple EA
     # (See: http://deap.gel.ulaval.ca/doc/dev/api/algo.html for details)

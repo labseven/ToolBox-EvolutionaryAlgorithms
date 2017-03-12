@@ -149,14 +149,14 @@ def mutate_text(message, prob_ins=0.05, prob_del=0.05, prob_sub=0.05):
         new_message = message[:loc]
         new_message += char
         new_message += message[loc:]
-        return (new_message, )
+        message.self = new_message
 
     # Remove a random character
     if rand_chance < (prob_ins + prob_del):
         loc = random.randrange(len(message))
         new_message = message[:loc]
         new_message += message[loc + 1:]
-        return (new_message, )
+        message.self = new_message
 
     # Substitute a random character
     if rand_chance < (prob_ins + prob_del + prob_sub):
@@ -166,7 +166,7 @@ def mutate_text(message, prob_ins=0.05, prob_del=0.05, prob_sub=0.05):
         new_message = message[:loc]
         new_message += char
         new_message += message[loc + 1:]
-        return (new_message, )
+        message.self = new_message
 
     return (message, )   # Length 1 tuple, required by DEAP
 

@@ -92,8 +92,26 @@ class Message(list):
 # Genetic operators
 # -----------------------------------------------------------------------------
 
-# TODO: Implement levenshtein_distance function (see Day 9 in-class exercises)
-# HINT: Now would be a great time to implement memoization if you haven't
+def levenshtein_distance(text0, text1):
+    dist = np.zeros((len(text0), len(text1)))
+
+    # The first row and column are 0
+    for i in range(len(text0)):
+        dist[i, 0] = i
+
+    for j in range(len(text1)):
+        dist[0, j] = j
+
+    for j in range(1, len(text1)):
+        for i in range(1, len(text0)):
+            if text0[i] == text1[j]:
+                dist[i, j] = dist[i-1, j-1]
+            else:
+                dist[i, j] = 1 + min(   dist[i-1, j-1],
+                                        dist[i-1, j],
+                                        dist[i, j-1])
+    print(dist)
+    return dist[-1, -1]
 
 def evaluate_text(message, goal_text, verbose=VERBOSE):
     """

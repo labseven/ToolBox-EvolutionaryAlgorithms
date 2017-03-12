@@ -110,7 +110,7 @@ def levenshtein_distance(text0, text1):
                 dist[i, j] = 1 + min(   dist[i-1, j-1],
                                         dist[i-1, j],
                                         dist[i, j-1])
-    print(dist)
+
     return dist[-1, -1]
 
 def evaluate_text(message, goal_text, verbose=VERBOSE):
@@ -243,6 +243,8 @@ if __name__ == "__main__":
         goal = "SKYNET IS NOW ONLINE"
     else:
         goal = " ".join(sys.argv[1:])
+
+    goal = goal.upper()
 
     # Verify that specified goal contains only known valid characters
     # (otherwise we'll never be able to evolve that string)
